@@ -3,17 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { Card } from 'react-native-paper';
 import * as Location from 'expo-location';
-const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
-
+// const WEATHER_API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
+import { WEATHER_API_KEY } from '@env';
 export default function App() {
-  let latitude = 45.5152;
-  let longitude = -122.6784;
-  console.log('key', WEATHER_API_KEY);
+  // let latitude = 45.5152;
+  // let longitude = -122.6784;
 
   const [data, setData] = useState([]);
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
   const [city, setCity] = useState(null);
+  console.log(WEATHER_API_KEY);
 
   useEffect(() => {
     (async () => {
@@ -31,12 +31,10 @@ export default function App() {
   useEffect(() => {
     let latitude = location?.latitude;
     let longitude = location?.longitude;
-    const url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&days=3&key=93d91510b17249989966d78d1978ffdf`;
+    const url = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${latitude}&lon=${longitude}&days=3&key=${WEATHER_API_KEY}`;
     if (location) {
       getWeather(url);
     }
-    console.log('hmm', location);
-    console.log('url', url);
   }, [location]);
 
   async function getWeather(url) {
@@ -49,11 +47,6 @@ export default function App() {
     } catch (error) {
       console.error(error);
     }
-  }
-
-  console.log('data', data);
-  if (location) {
-    console.log('geo', location.latitude);
   }
 
   return (
