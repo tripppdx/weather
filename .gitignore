@@ -107,4 +107,4 @@ dist
 .prettierrc
 .DS_store
 *.zip
-.expo
+.expo/*
